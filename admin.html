@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="gu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>એડમિન: બિલ અપલોડ – છોટા ઉદેપુર નગરપાલિકા</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top"><b>છોટા ઉદેપુર નગરપાલિકા</b> <a href="index.html">નાગરિક પેજ</a></header>
+<main class="wide">
+  <section class="card">
+    <h1>એડમિન: બિલ (PDF) અપલોડ</h1>
+    <p class="muted">અહીં ફક્ત PDF પસંદ કરવાની છે. બ્રાઉઝર દરેક PDF ને તમારા જ કમ્પ્યુટરમાં એન્ક્રિપ્ટ કરે છે; મૂળ PDF ક્યાંય મોકલાતી નથી.</p>
+    <div class="warn">આ પેજ પર પાસવર્ડ નથી. સુરક્ષા આ છે: GitHub repo માં ફક્ત જેને લખવાની પરવાનગી છે તે જ બિલ મૂકી શકે. <b>મૂળ PDF કે CSV ક્યારેય GitHub પર મૂકવી નહીં.</b></div>
+  </section>
+
+  <section class="card">
+    <h2>1. PDF પસંદ કરો</h2>
+    <p class="muted" id="nameHint"></p>
+    <label for="pdfs">PDF ફાઇલો</label>
+    <input id="pdfs" type="file" accept=".pdf,application/pdf" multiple>
+    <label for="folder">અથવા આખો ફોલ્ડર</label>
+    <input id="folder" type="file" webkitdirectory>
+
+    <h2 class="gap">2. CSV (વૈકલ્પિક)</h2>
+    <p class="muted">જો PDF નું નામ ફક્ત ટેનામેન્ટ નંબર હોય (જેમ કે <code>12345.pdf</code>) તો CSV મૂકો. પહેલી લીટી: <code>tenement,mobile</code></p>
+    <input id="csv" type="file" accept=".csv,text/csv,text/plain">
+  </section>
+
+  <section class="card">
+    <h2>3. ક્યાં સાચવવું</h2>
+    <div id="dirWrap" hidden>
+      <p class="muted">GitHub ફોલ્ડર (તમારા કમ્પ્યુટર પર) નો <code>docs/b</code> ફોલ્ડર પસંદ કરો. ફાઇલો સીધી ત્યાં લખાશે.</p>
+      <button id="pickDir" type="button" class="alt">ફોલ્ડર પસંદ કરો</button>
+      <p class="muted">પસંદ કરેલ: <b id="dirName">કોઈ નહીં</b></p>
+      <p id="dirWarn" class="msg err" hidden>આ ફોલ્ડરનું નામ <code>b</code> નથી. ખાતરી કરો કે તમે <code>docs/b</code> જ પસંદ કર્યું છે.</p>
+    </div>
+    <p id="zipNote" class="muted" hidden>આ બ્રાઉઝરમાં ફોલ્ડર સીધું પસંદ થઈ શકતું નથી, એટલે ZIP ફાઇલો બનશે. (Chrome કે Edge માં ફોલ્ડર સીધું ચાલે છે.)</p>
+    <p class="muted" id="zipFallback" hidden>ફોલ્ડર ન પસંદ કરો તો ZIP ફાઇલો બનશે, તેને <code>docs/b</code> માં Extract કરવી.</p>
+  </section>
+
+  <section class="card">
+    <button id="start" type="button">એન્ક્રિપ્ટ કરો</button>
+    <progress id="bar" value="0" max="1" hidden></progress>
+    <p id="status" class="msg info" role="status" hidden></p>
+    <ul id="parts" class="list"></ul>
+    <a id="summary" class="btn alt" href="#" hidden>યાદી (CSV) ડાઉનલોડ કરો</a>
+    <h2 id="errTitle" hidden>આ ફાઇલો બાકી રહી</h2>
+    <ul id="errors" class="list err"></ul>
+  </section>
+
+  <section class="card">
+    <h2>પછી શું કરવું</h2>
+    <ol class="steps">
+      <li>GitHub Desktop ખોલો, ફેરફારો દેખાશે. <b>Commit</b> અને પછી <b>Push</b> કરો.</li>
+      <li>1-2 મિનિટમાં વેબસાઇટ પર બિલ ઉપલબ્ધ થઈ જશે.</li>
+      <li>બિલ હટાવવું હોય તો <code>docs/b</code> માંથી તે ફાઇલ ડિલીટ કરીને Push કરો. બિલ બદલવું હોય તો નવું PDF ફરીથી એન્ક્રિપ્ટ કરો.</li>
+    </ol>
+  </section>
+</main>
+<script src="js/config.js"></script>
+<script src="js/npcrypto.js"></script>
+<script src="js/zip.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
